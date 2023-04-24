@@ -531,7 +531,7 @@ pub fn add_to_parents(node: DAGPtr, plink: NonNull<Parents>) {
 }
 
 /// Free parentless nodes.
-pub fn free_dead_node(node: DAGPtr) {
+pub unsafe fn free_dead_node(node: DAGPtr) {
   unsafe {
     match node {
       DAGPtr::Lam(link) => {
@@ -539,7 +539,7 @@ pub fn free_dead_node(node: DAGPtr) {
         let new_bod_parents = bod_ref.unlink_node();
         set_parents(*bod, new_bod_parents);
         if new_bod_parents.is_none() {
-          free_dead_node(*bod)
+          (*bod)
         }
         Box::from_raw(link.as_ptr());
       }
@@ -548,7 +548,7 @@ pub fn free_dead_node(node: DAGPtr) {
         let new_bod_parents = bod_ref.unlink_node();
         set_parents(*bod, new_bod_parents);
         if new_bod_parents.is_none() {
-          free_dead_node(*bod)
+          unsafe { free_dead_node(*bod) }
         }
         Box::from_raw(link.as_ptr());
       }
