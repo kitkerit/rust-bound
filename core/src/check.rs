@@ -557,7 +557,7 @@ pub fn infer_all(
   ctx.push((nam.to_string(), Uses::None, &mut dom_dag));
   check(rec, defs, ctx, Uses::None, img, &mut typ, should_count)?;
   ctx.pop();
-  free_dead_node(dom_dag);
+  unsafe { free_dead_node(dom_dag) };
   Ok(typ)
 }
 
