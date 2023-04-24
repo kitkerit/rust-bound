@@ -1,0 +1,43 @@
+[package]
+name = "yatima-core"
+version = "0.1.1"
+edition = "2018"
+authors = [
+    "John C. Burnham <john@yatima.io>",
+    "Anders C. Sørby <anders@yatima.io>",
+    "Gabriel Barreto <gabriel@yatima.io>",
+    "Samuel Burnham <sam@yatima.io>",
+]
+license = "MIT"
+readme = "../README.md"
+homepage = "https://yatima.io"
+repository = "https://github.com/yatima-inc/yatima"
+documentation = "https://docs.rs/yatima"
+description = "The core evaluation, typechecking and content-addressing infrastructure of the Yatima Language"
+categories = ["no-std"]
+
+[features]
+std = []
+
+[dependencies]
+sp-std = { version = "3", default-features = false }
+num-bigint = { version = "0.3", default-features = false }
+nom = { version = "6", default-features = false, features = ["alloc"] }
+base-x = { version = "0.2.8", default-features = false }
+multibase = { version = "0.9.1", default-features = false }
+nom_locate = { version = "3.0", default-features = false }
+sp-cid = { version = "0.2.0", default-features = false }
+sp-multihash = { version = "0.2.0", default-features = false }
+sp-ipld = { version = "0.1.2", default-features = false, features = ["dag-cbor"] }
+sp-sized-chunks = { version = "0.1.0", default-features = false }
+sp-im = { version = "0.2.1", default-features = false }
+sp-ropey = { version = "0.1.0", default-features = false }
+
+[dev-dependencies]
+quickcheck = "1.0.3"
+rand = "0.8.3"
+quickcheck_macros = "1.0.0"
+
+
+[[bench]]
+name = "runtime"
